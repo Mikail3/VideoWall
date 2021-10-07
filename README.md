@@ -165,7 +165,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+* Mikail Cinar - [@Mikail Cinar](https://www.linkedin.com/in/mikail-cinar-037bb5197/) - 11800892@student.pxl.be
+* Rasit Akay - [@Rasit Akay](https://www.linkedin.com/in/rasit-akay-618ba3221/) - 11800890@student.pxl.be
+* Osman Seker - [@Osman Seker](https://www.linkedin.com/in/osman-seker-ba122a222/) - 11800801@student.pxl.be
+* Bram Willems  - [@Bram Willems](https://www.linkedin.com/in/bram-willems-bb85ba222/) - 11802465@student.pxl.be
+
 
 Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
 
