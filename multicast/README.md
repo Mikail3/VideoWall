@@ -3,9 +3,11 @@
 - Copy `server.py` to `/home/pi`
 - Copy `videowallserver.service` to `/lib/systemd/system`
 - Run the following commands:
-    sudo chmod 644 /lib/systemd/system/videowallserver.service
-    sudo systemctl enable videowallserver.service
-    sudo systemctl start videowallserver.service
+```
+sudo chmod 644 /lib/systemd/system/videowallserver.service
+sudo systemctl enable videowallserver.service
+sudo systemctl start videowallserver.service
+```
     
 
 # Client Instructions
