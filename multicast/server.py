@@ -1,4 +1,4 @@
-import socket, os, time, mimetypes, subprocess
+import socket, os, time, mimetypes, subprocess, ffmpeg
 
 MCAST_GRP = '224.1.1.1'
 MCAST_PORT = 5007
@@ -29,6 +29,13 @@ def findFiles(drive):
         print("No videos found...")
         return []
 
+def getResolution(f):
+    probe = ffmpeg.probe(f)
+    video = [stream for stream in probe['streams'] if stream['codec_type'] == 'video']
+    for v in video:
+        return "{} {}".format(v['width'], v['height'])
+    return None
+
 if __name__ == '__main__':
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
     sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, MULTICAST_TTL)
@@ -40,9 +47,16 @@ if __name__ == '__main__':
             for f in files:
                 print("Beginning to stream {}...".format(f))
                 try:
-                    sock.sendto(FFMPEG_MCAST.encode('utf_8'), (MCAST_GRP, MCAST_PORT))
-                    subprocess.run(["ffmpeg", "-re", "-i", f, "-codec", "copy", "-bsf:v", "h264_mp4toannexb", "-f", "mpegts", "{}?ttl=2&packetsize=1316".format(FFMPEG_MCAST)])
-                    sock.sendto(b'END', (MCAST_GRP, MCAST_PORT))
+                    res = getResolution(f)
+                    if res is not None:
+                        payload = "{} {}".format(FFMPEG_MCAST, res)
+                        sock.sendto(payload.encode('utf_8'), (MCAST_GRP, MCAST_PORT))
+                        time.sleep(5)
+                        subprocess.run(["ffmpeg", "-re", "-i", f, "-codec", "copy", "-bsf:v", "h264_mp4toannexb", "-f", "mpegts", "{}?ttl=2&packetsize=1316".format(FFMPEG_MCAST)])
+                        time.sleep(5)
+                        sock.sendto(b'END', (MCAST_GRP, MCAST_PORT))
+                    else:
+                        print("Invalid file...")
                     print("Done, restarting...")
                     time.sleep(1)
                 except:
