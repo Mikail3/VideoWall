@@ -1,0 +1,15 @@
+#Must be placed in /lib/systemd/system and chmodded to 644.
+#Then run sudo systemctl enable videowallserver.service
+
+[Unit]
+Description=Videowall Server Service
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python3 /home/pi/server.py
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
