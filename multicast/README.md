@@ -4,6 +4,7 @@
 - Copy `videowallserver.service` to `/lib/systemd/system`
 - Run the following commands:
 ```
+sudo pip3 install ffmpeg-python
 sudo chmod 644 /lib/systemd/system/videowallserver.service
 sudo systemctl enable videowallserver.service
 sudo systemctl start videowallserver.service
@@ -20,7 +21,6 @@ sudo systemctl start videowallserver.service
 ```
 sudo apt-get update
 sudo apt-get install mpv
-sudo pip3 install ffmpeg-python
 sudo chmod 644 /lib/systemd/system/videowallclient.service
 sudo systemctl enable videowallclient.service
 sudo systemctl start videowallclient.service
