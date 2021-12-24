@@ -37,6 +37,7 @@ def getResolution(f):
     return None
 
 if __name__ == '__main__':
+    time.sleep(30)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
     sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, MULTICAST_TTL)
     while True:
