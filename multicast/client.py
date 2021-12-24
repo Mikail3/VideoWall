@@ -1,4 +1,4 @@
-import socket, struct, io, subprocess, json
+import socket, struct, io, subprocess, json, pygame
 
 MCAST_GRP = '224.1.1.1'
 MCAST_PORT = 5007
@@ -21,6 +21,9 @@ if __name__ == '__main__':
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((MCAST_GRP, MCAST_PORT))
     sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, struct.pack('4sl', socket.inet_aton(MCAST_GRP), socket.INADDR_ANY))
+    
+    pygame.init()
+    pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
     while True:
         data = io.BytesIO(sock.recv(102400)).read().decode('utf_8')
@@ -29,9 +32,11 @@ if __name__ == '__main__':
             if PROCESS is not None:
                 PROCESS.kill()
                 PROCESS = None
+                pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         else:
             url, w, h = tuple(data.split(' '))
             params = getParams(url, int(w), int(h))
             print("Playing video with command line: '{}'...".format(" ".join(params)))
             PROCESS = subprocess.Popen(params, stdout=subprocess.PIPE)
+            pygame.display.quit()
         
