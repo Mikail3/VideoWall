@@ -3,7 +3,8 @@
 
 [Unit]
 Description=Videowall Client Service
-After=multi-user.target
+After=graphical.target
+Wants=graphical.target
 
 [Service]
 Type=idle
@@ -12,4 +13,4 @@ Restart=on-failure
 RestartSec=5s
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=graphical.target
