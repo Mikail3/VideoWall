@@ -1,0 +1,6 @@
+#Must be placed in /home/pi/.config/autostart/videowallclient.desktop
+
+[Desktop Entry]
+Type=Application
+Name=videowallclient
+Exec=/usr/bin/python3 /home/pi/client.py
